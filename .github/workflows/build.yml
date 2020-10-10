@@ -1,0 +1,38 @@
+name: Build
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build (msvc ${{matrix.msvc}})
+    runs-on: windows-latest
+    env:
+      PACKAGE: ghcr.io/${{github.repository_owner}}/build-windows
+    strategy:
+      matrix:
+        msvc: [15, 16]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2.3.3
+      - name: Gather info
+        id: info
+        run: |
+          $tag = "${{env.PACKAGE}}:msvc${{matrix.msvc}}".ToLower()
+          echo "::set-output name=tag::$tag"
+      - name: Build image
+        run: >
+          docker build .
+          -t ${{steps.info.outputs.tag}}
+          --build-arg VS_VERSION=${{matrix.msvc}}
+      - name: Login to registry
+        if: github.ref == 'refs/heads/main'
+        run: >
+          echo ${{secrets.CONTAINER_REGISTRY_TOKEN}} |
+          docker login ghcr.io
+          -u ${{secrets.CONTAINER_REGISTRY_USER}}
+          --password-stdin
+      - name: Push image
+        if: github.ref == 'refs/heads/main'
+        run: docker push ${{steps.info.outputs.tag}}
