@@ -6,7 +6,7 @@ on:
       - main
 jobs:
   build:
-    name: Build (msvc ${{matrix.msvc}})
+    name: Build (msvc-${{matrix.msvc}})
     runs-on: windows-latest
     env:
       PACKAGE: ghcr.io/${{github.repository_owner}}/build-windows
@@ -19,7 +19,7 @@ jobs:
       - name: Gather info
         id: info
         run: |
-          $tag = "${{env.PACKAGE}}:msvc${{matrix.msvc}}".ToLower()
+          $tag = "${{env.PACKAGE}}:msvc-${{matrix.msvc}}".ToLower()
           echo "::set-output name=tag::$tag"
       - name: Build image
         run: >
