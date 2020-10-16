@@ -32,6 +32,10 @@ RUN choco install -y ninja && \
 RUN choco install -y python3 && \
     del /s /f /q %TEMP%
 
+# install git
+RUN choco install -y git && \
+    del /s /f /q %TEMP%
+
 # install vssetup
 ADD https://github.com/microsoft/vssetup.powershell/releases/download/${VSSETUP_VERSION}/VSSetup.zip \
     C:\\Temp\\vssetup.zip
