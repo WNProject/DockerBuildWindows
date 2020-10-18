@@ -57,8 +57,7 @@ RUN C:\\Temp\\install-wrapper.cmd C:\\Temp\\vsbuildtools.exe \
       --channelUri C:\\Temp\\vschannel.chman \
       --installChannelUri C:\\Temp\\vschannel.chman \
       --add Microsoft.VisualStudio.Workload.VCTools \
-      --add Microsoft.VisualStudio.Component.VC.ATL \
-      --includeRecommended && \
+      --add Microsoft.VisualStudio.Component.VC.ATL && \
     rmdir /s /q C:\\Temp && \
     del /s /f /q %TEMP%
 
