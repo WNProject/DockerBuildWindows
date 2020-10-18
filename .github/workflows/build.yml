@@ -26,6 +26,12 @@ jobs:
           docker build .
           -t ${{steps.info.outputs.tag}}
           --build-arg VS_VERSION=${{matrix.msvc}}
+      - name: Report image details
+        run: >
+          docker image history
+          --no-trunc
+          --format "table {{.Size}}\t{{.CreatedBy}}"
+          ${{steps.info.outputs.tag}}
       - name: Login to registry
         if: github.ref == 'refs/heads/main'
         run: >
