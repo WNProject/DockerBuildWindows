@@ -32,3 +32,5 @@ cmd /c """$vcvars"" $architecture & set" | foreach {
 Write-Host 'Done'
 Write-Host '------------------------------------------------------------'
 Invoke-Expression "$args"
+
+exit $LastExitCode
