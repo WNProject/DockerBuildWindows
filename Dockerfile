@@ -4,6 +4,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 ARG VS_VERSION
 ARG VSSETUP_VERSION="2.2.16"
 ARG CMAKE_VERSION="3.18.2"
+ARG WIN_SDK_VERSION="17763"
 
 # set environment variables to defaults
 ENV VS_ARCH="amd64"
@@ -58,7 +59,8 @@ RUN C:\\Temp\\install-wrapper.cmd C:\\Temp\\vsbuildtools.exe \
       --installChannelUri C:\\Temp\\vschannel.chman \
       --add Microsoft.VisualStudio.Workload.VCTools \
       --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 \
-      --add Microsoft.VisualStudio.Component.VC.ATL && \
+      --add Microsoft.VisualStudio.Component.VC.ATL \
+      --add Microsoft.VisualStudio.Component.Windows10SDK.%WIN_SDK_VERSION% && \
     rmdir /s /q C:\\Temp && \
     del /s /f /q %TEMP%
 
