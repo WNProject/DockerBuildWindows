@@ -6,7 +6,7 @@ $range = "[$version.0,$versionHigh.0)"
 $vs = Get-VSSetupInstance | Select-VSSetupInstance -Version $range -Product *
 
 if (!$vs) {
-  Write-Host 'Unable to get installed Visual Studio info'
+  Write-Error 'Unable to get installed Visual Studio info'
 
   exit 1
 }
@@ -14,7 +14,7 @@ if (!$vs) {
 $vsPath = $vs.InstallationPath
 
 if (!$vsPath) {
-  Write-Host 'Unable to get installed Visual Studio path'
+  Write-Error 'Unable to get installed Visual Studio path'
 
   exit 1
 }
@@ -22,7 +22,7 @@ if (!$vsPath) {
 $vcvars = Join-Path $vsPath 'VC/Auxiliary/Build/vcvarsall.bat'
 
 if (!(Test-Path $vcvars)) {
-  Write-Host 'Expected path for Visual Studio vsvarsall does not exist'
+  Write-Error 'Expected path for Visual Studio vsvarsall does not exist'
 
   exit 1
 }
