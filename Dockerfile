@@ -7,7 +7,8 @@ ARG CMAKE_VERSION="3.18.2"
 ARG SDK_VERSION="17763"
 
 # set environment variables to defaults
-ENV VS_VERSION=${VS_VERSION} \
+ENV DEBUG="0" \
+    VS_VERSION=${VS_VERSION} \
     VS_ARCH="amd64"
 
 # set default shell
