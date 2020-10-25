@@ -3,7 +3,7 @@
 [![License]](LICENSE)
 [![Build][Build Badge]][Build Workflow]
 
-A docker container containing all needed **Windows** C/C++ build tools. Each
+Docker container containing all needed **Windows** C/C++ build tools. Each
 container will contain only one version of **MSVC** but will contain all
 additional libraries and build tools needed (**Python 3**, **Ninja**, etc).
 
