@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 # set input arguments to defaults
 ARG VS_VERSION
 ARG VSSETUP_VERSION="2.2.16"
-ARG CMAKE_VERSION="3.18.2"
+ARG CMAKE_VERSION="3.16.3"
 ARG SDK_VERSION="17763"
 
 # set environment variables to defaults

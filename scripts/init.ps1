@@ -28,6 +28,11 @@ if (!(Test-Path $vcvars)) {
 }
 
 if ($debug -eq 1) {
+  $operatingSystemInfo = Get-CimInstance Win32_OperatingSystem
+  $physicalMemory = (Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory
+  $visibleMemory = $operatingSystemInfo.TotalVisibleMemorySize
+  $freeMemory = $operatingSystemInfo.FreePhysicalMemory
+
   Write-Host 'Setup Visual C++ Build Environment ...'
   Write-Host "  Version: $version"
   Write-Host "  Full Version: $($vs.InstallationVersion)"
@@ -35,6 +40,9 @@ if ($debug -eq 1) {
   Write-Host "  Name: $($vs.DisplayName)"
   Write-Host "  Path: $vsPath"
   Write-Host "  VCVars Path: $vcvars"
+  Write-Host "  Total Physical Memory: $physicalMemory"
+  Write-Host "  Total Visible Memory: $visibleMemory"
+  Write-Host "  Free Physical Memory: $freeMemory"
 }
 
 cmd /c """$vcvars"" $architecture & set" | foreach {
