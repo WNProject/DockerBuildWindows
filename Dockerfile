@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 # set input arguments to defaults
 ARG VS_VERSION
 ARG VSSETUP_VERSION="2.2.16"
-ARG CMAKE_VERSION="3.16.3"
+ARG CMAKE_VERSION="3.16.4.20200221"
 ARG SDK_VERSION="17763"
 
 # set environment variables to defaults
@@ -21,10 +21,10 @@ RUN $errorActionPreference = 'Stop'; \
       -Uri https://chocolatey.org/install.ps1 \
       -OutFile C:\Temp\install-chocolatey.ps1; \
     C:\Temp\install-chocolatey.ps1; \
-    choco install -y cmake \
+    C:\Temp\execute-wrapper.ps1 choco install -y cmake \
       --version "$env:CMAKE_VERSION" \
       --ia 'ADD_CMAKE_TO_PATH=System'; \
-    choco install -y ninja python git; \
+    C:\Temp\execute-wrapper.ps1 choco install -y ninja python git; \
     C:\Temp\add-to-path.ps1 \
       -Path "$env:CHOCOLATEYINSTALL\lib\ninja\tools"; \
     $vsSetupUrl = 'https://github.com/microsoft/vssetup.powershell'; \
@@ -43,7 +43,8 @@ RUN $errorActionPreference = 'Stop'; \
     Invoke-WebRequest \
       -Uri "http://aka.ms/vs/$env:VS_VERSION/release/vs_buildtools.exe" \
       -OutFile C:\Temp\vsbuildtools.exe; \
-    cmd /s /c C:\Temp\install-wrapper.cmd C:\Temp\vsbuildtools.exe \
+    C:\Temp\execute-wrapper.ps1 cmd /s /c C:\Temp\install-wrapper.cmd \
+      C:\Temp\vsbuildtools.exe \
       --quiet --wait --norestart --nocache \
       --channelUri C:\Temp\vschannel.chman \
       --installChannelUri C:\Temp\vschannel.chman \

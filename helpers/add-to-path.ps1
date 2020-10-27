@@ -1,5 +1,7 @@
 param([Parameter(Mandatory=$true)][string] $path)
 
+$errorActionPreference = 'Stop'
+
 Write-Host "Adding $path to PATH"
 
 $oldPath = [Environment]::GetEnvironmentVariable('PATH', 'Machine')

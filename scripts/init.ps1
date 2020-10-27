@@ -1,3 +1,4 @@
+$errorActionPreference = 'Stop'
 $version = $env:VS_VERSION
 $architecture = $env:VS_ARCH
 $debug = $env:DEBUG
@@ -60,4 +61,6 @@ if ($debug -eq 1) {
 
 Invoke-Expression "$args"
 
-exit $LastExitCode
+if ($lastExitCode -ne 0 -or -not $?) {
+  throw "Command '$args' failed"
+}
