@@ -25,8 +25,7 @@ RUN $errorActionPreference = 'Stop'; \
       --version "$env:CMAKE_VERSION" \
       --ia 'ADD_CMAKE_TO_PATH=System'; \
     C:\Temp\execute-wrapper.ps1 choco install -y ninja python git; \
-    C:\Temp\add-to-path.ps1 \
-      -Path "$env:CHOCOLATEYINSTALL\lib\ninja\tools"; \
+    C:\Temp\add-to-path.ps1 "$env:CHOCOLATEYINSTALL\lib\ninja\tools"; \
     $vsSetupUrl = 'https://github.com/microsoft/vssetup.powershell'; \
     Invoke-WebRequest \
       -Uri "$vsSetupUrl/releases/download/$env:VSSETUP_VERSION/VSSetup.zip" \
@@ -43,8 +42,8 @@ RUN $errorActionPreference = 'Stop'; \
     Invoke-WebRequest \
       -Uri "http://aka.ms/vs/$env:VS_VERSION/release/vs_buildtools.exe" \
       -OutFile C:\Temp\vsbuildtools.exe; \
-    C:\Temp\execute-wrapper.ps1 cmd /s /c C:\Temp\install-wrapper.cmd \
-      C:\Temp\vsbuildtools.exe \
+    C:\Temp\execute-wrapper.ps1 cmd /s /c \
+      C:\Temp\install-wrapper.cmd C:\Temp\vsbuildtools.exe \
       --quiet --wait --norestart --nocache \
       --channelUri C:\Temp\vschannel.chman \
       --installChannelUri C:\Temp\vschannel.chman \
@@ -55,11 +54,10 @@ RUN $errorActionPreference = 'Stop'; \
     Invoke-WebRequest \
       -Uri https://win.rustup.rs/x86_64 \
       -Outfile C:\Temp\rustup-init.exe; \
-    C:\Temp\execute-wrapper.ps1  C:\Temp\rustup-init.exe -y; \
-    C:\Temp\add-to-path.ps1 \
-      -Path "$env:UserProfile\.cargo\bin"; \
-    C:\Temp\execute-wrapper.ps1 cmd /s /c "$env:UserProfile\.cargo\bin\cargo install sccache --features=gcs"; \
-    Remove-Item "$env:UserProfile\.cargo\registry" -Force -Recurse; \    
+    C:\Temp\execute-wrapper.ps1 C:\Temp\rustup-init.exe -y; \
+    C:\Temp\add-to-path.ps1 "$env:USERPROFILE\.cargo\bin"; \
+    C:\Temp\execute-wrapper.ps1 cargo install sccache --features=gcs; \
+    Remove-Item "$env:USERPROFILE\.cargo\registry" -Force -Recurse; \
     Remove-Item C:\Temp -Force -Recurse; \
     Remove-Item "$env:TEMP\*" -Force -Recurse
 
