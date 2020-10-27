@@ -52,6 +52,14 @@ RUN $errorActionPreference = 'Stop'; \
       --add Microsoft.VisualStudio.Component.VC.ATL \
       --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 \
       --add "Microsoft.VisualStudio.Component.Windows10SDK.$env:SDK_VERSION"; \
+    Invoke-WebRequest \
+      -Uri https://win.rustup.rs/x86_64 \
+      -Outfile C:\Temp\rustup-init.exe; \
+    C:\Temp\execute-wrapper.ps1  C:\Temp\rustup-init.exe -y; \
+    C:\Temp\add-to-path.ps1 \
+      -Path "$env:UserProfile\.cargo\bin"; \
+    C:\Temp\execute-wrapper.ps1 cmd /s /c "$env:UserProfile\.cargo\bin\cargo install sccache --features=gcs"; \
+    Remove-Item "$env:UserProfile\.cargo\registry" -Force -Recurse; \    
     Remove-Item C:\Temp -Force -Recurse; \
     Remove-Item "$env:TEMP\*" -Force -Recurse
 
