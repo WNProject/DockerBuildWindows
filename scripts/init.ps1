@@ -7,28 +7,22 @@ $range = "[$version.0,$versionHigh.0)"
 $vs = Get-VSSetupInstance | Select-VSSetupInstance -Version $range -Product *
 
 if (!$vs) {
-  Write-Error 'Unable to get installed Visual Studio info'
-
-  exit 1
+  throw 'Unable to get installed Visual Studio info'
 }
 
 $vsPath = $vs.InstallationPath
 
 if (!$vsPath) {
-  Write-Error 'Unable to get installed Visual Studio path'
-
-  exit 1
+  throw 'Unable to get installed Visual Studio path'
 }
 
 $vcvars = Join-Path $vsPath 'VC/Auxiliary/Build/vcvarsall.bat'
 
 if (!(Test-Path $vcvars)) {
-  Write-Error 'Expected path for Visual Studio vsvarsall does not exist'
-
-  exit 1
+  throw 'Expected path for Visual Studio vsvarsall does not exist'
 }
 
-if ($debug -eq 1) {
+if ($debug -Eq 1) {
   $operatingSystemInfo = Get-CimInstance Win32_OperatingSystem
   $physicalMemory = (Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory
   $visibleMemory = $operatingSystemInfo.TotalVisibleMemorySize
@@ -41,9 +35,9 @@ if ($debug -eq 1) {
   Write-Host "  Name: $($vs.DisplayName)"
   Write-Host "  Path: $vsPath"
   Write-Host "  VCVars Path: $vcvars"
-  Write-Host "  Total Physical Memory: $physicalMemory"
-  Write-Host "  Total Visible Memory: $visibleMemory"
-  Write-Host "  Free Physical Memory: $freeMemory"
+  Write-Host "  Total Physical Memory (KB): $($physicalMemory / 1KB)"
+  Write-Host "  Total Visible Memory (KB): $($visibleMemory)"
+  Write-Host "  Free Physical Memory (KB): $($freeMemory)"
 }
 
 cmd /c """$vcvars"" $architecture & set" | foreach {
@@ -54,13 +48,13 @@ cmd /c """$vcvars"" $architecture & set" | foreach {
   }
 }
 
-if ($debug -eq 1) {
+if ($debug -Eq 1) {
   Write-Host 'Done'
   Write-Host '------------------------------------------------------------'
 }
 
 Invoke-Expression "$args"
 
-if ($lastExitCode -ne 0 -or -not $?) {
+if ($lastExitCode -Ne 0 -Or -Not $?) {
   throw "Command '$args' failed"
 }
