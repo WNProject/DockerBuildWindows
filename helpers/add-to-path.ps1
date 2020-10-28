@@ -1,10 +1,13 @@
-param([Parameter(Mandatory=$true)][string] $path)
-
 $errorActionPreference = 'Stop'
 
-Write-Host "Adding $path to PATH"
+if (!(Test-Path "$args")) {
+  throw "Path '$args' does not exist"
+}
 
-$oldPath = [Environment]::GetEnvironmentVariable('PATH', 'Machine')
-$newPath = "$oldPath;$path"
+Write-Host "Adding '$args' to local and user PATH"
 
-[Environment]::SetEnvironmentVariable('PATH', $newPath, 'Machine');
+$env:PATH += ";$args"
+$oldPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
+$newPath = "$oldPath;$args"
+
+[Environment]::SetEnvironmentVariable('PATH', $newPath, 'User');
