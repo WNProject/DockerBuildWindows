@@ -2,6 +2,6 @@ $errorActionPreference = 'Stop'
 
 Invoke-Expression "$args"
 
-if ($lastExitCode -ne 0 -or -not $?) {
+if ($lastExitCode -Ne 0 -Or -Not $?) {
   throw "Command '$args' failed"
 }
