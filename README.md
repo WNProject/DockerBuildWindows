@@ -5,8 +5,8 @@
 
 Docker container containing all needed **Windows** C/C++ build tools. Each
 container will contain only one version of **MSVC** but will contain all
-additional libraries and build tools needed (**Python 3**, **Ninja**, etc). Only
-**x86-64** builds are supported.
+additional libraries and build tools needed (**Python 3**, **Ninja**, etc).
+Currently we only support **x86-64** compilers.
 
 ## Usage
 
