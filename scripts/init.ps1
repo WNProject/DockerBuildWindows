@@ -1,6 +1,5 @@
 $errorActionPreference = 'Stop'
 $version = $env:VS_VERSION
-$architecture = $env:VS_ARCH
 $debug = $env:DEBUG
 $versionHigh = $version + 1
 $range = "[$version.0,$versionHigh.0)"
@@ -31,7 +30,6 @@ if ($debug -Eq 1) {
   Write-Host 'Setup Visual C++ Build Environment ...'
   Write-Host "  Version: $version"
   Write-Host "  Full Version: $($vs.InstallationVersion)"
-  Write-Host "  Architecture: $architecture"
   Write-Host "  Name: $($vs.DisplayName)"
   Write-Host "  Path: $vsPath"
   Write-Host "  VCVars Path: $vcvars"
@@ -40,7 +38,7 @@ if ($debug -Eq 1) {
   Write-Host "  Free Physical Memory (KB): $($freeMemory)"
 }
 
-cmd /c """$vcvars"" $architecture & set" | foreach {
+cmd /c """$vcvars"" amd64 & set" | foreach {
   if ($_ -Match "=") {
     $v = $_.Split("=")
 

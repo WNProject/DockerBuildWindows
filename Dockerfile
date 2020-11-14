@@ -8,8 +8,7 @@ ARG SDK_VERSION="17763"
 
 # set environment variables to defaults
 ENV DEBUG="0" \
-    VS_VERSION=${VS_VERSION} \
-    VS_ARCH="amd64"
+    VS_VERSION=${VS_VERSION}
 
 # set default shell
 SHELL ["powershell", "-Command"]

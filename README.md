@@ -6,14 +6,12 @@
 Docker container containing all needed **Windows** C/C++ build tools. Each
 container will contain only one version of **MSVC** but will contain all
 additional libraries and build tools needed (**Python 3**, **Ninja**, etc).
+Currently we only support **x86-64** compilers.
 
 ## Usage
 
 There are 2 ways to use this container [Interactive](#interactive) and
-[Command](#command) mode. In both cases the `VS_ARCH` environment variable can
-be used to tell the container which target tool-chain architecture you want to
-configure for. The allowed values are `x86` and `amd64`, any other options will
-cause the container to exit.
+[Command](#command) mode.
 
 ### Interactive
 
@@ -21,7 +19,7 @@ This will run the container which will pre-configure the correct **MSVC** build
 tools and drop you into `powershell`.
 
 ```cmd
-docker run -it -e VS_ARCH=[x86|amd64] -v C:\src:C:\src build-windows
+docker run -it -v C:\src:C:\src build-windows
 ```
 
 ### Command
@@ -30,7 +28,7 @@ This will run the container which will pre-configure the correct **MSVC** build
 tools and run the supplied command directly.
 
 ```cmd
-docker run -e VS_ARCH=[x86|amd64] -v C:\src:C:\src build-windows [command]
+docker run -v C:\src:C:\src build-windows [command]
 ```
 
 ## Building
