@@ -57,7 +57,6 @@ RUN $errorActionPreference = 'Stop'; \
     C:\\Temp\\add-to-path.ps1 "$env:USERPROFILE\\.cargo\\bin"; \
     C:\\Temp\\execute-wrapper.ps1 cargo install sccache --features=gcs; \
     Remove-Item "$env:USERPROFILE\\.cargo\\registry" -Force -Recurse; \
-    Remove-Item "$env:USERPROFILE\\.cargo\\git" -Force -Recurse; \
     Remove-Item C:\\Temp -Force -Recurse; \
     Remove-Item "$env:TEMP\\*" -Force -Recurse
 
