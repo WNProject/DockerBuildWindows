@@ -23,7 +23,9 @@ RUN $errorActionPreference = 'Stop'; \
     C:\\Temp\\execute-wrapper.ps1 choco install -y cmake \
       --version "$env:CMAKE_VERSION" \
       --ia 'ADD_CMAKE_TO_PATH=System'; \
-    C:\\Temp\\execute-wrapper.ps1 choco install -y ninja python git; \
+    C:\\Temp\\execute-wrapper.ps1 choco install -y git \
+      --params '''/NoGitLfs /NoShellIntegration'''; \
+    C:\\Temp\\execute-wrapper.ps1 choco install -y ninja python; \
     C:\\Temp\\add-to-path.ps1 "$env:CHOCOLATEYINSTALL\\lib\\ninja\\tools"; \
     $vsSetupUrl = 'https://github.com/microsoft/vssetup.powershell'; \
     Invoke-WebRequest \
@@ -49,7 +51,10 @@ RUN $errorActionPreference = 'Stop'; \
       --add Microsoft.VisualStudio.Workload.VCTools \
       --add Microsoft.VisualStudio.Component.VC.ATL \
       --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 \
-      --add "Microsoft.VisualStudio.Component.Windows10SDK.$env:SDK_VERSION"; \
+      --add "Microsoft.VisualStudio.Component.Windows10SDK.$env:SDK_VERSION" \
+      --remove Microsoft.VisualStudio.Component.TextTemplating \
+      --remove Microsoft.VisualStudio.Component.Roslyn.Compiler \
+      --remove Microsoft.VisualStudio.Component.Static.Analysis.Tools; \
     Invoke-WebRequest \
       -Uri https://win.rustup.rs/x86_64 \
       -Outfile C:\\Temp\\rustup-init.exe; \
