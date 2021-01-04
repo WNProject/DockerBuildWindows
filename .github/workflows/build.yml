@@ -18,7 +18,7 @@ jobs:
           $package = 'ghcr.io/${{github.repository_owner}}/build-windows'
           $tag = "${package}:msvc-${{matrix.msvc}}".ToLower()
           echo "::set-output name=tag::$tag"
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2.3.4
       - name: Build image
         run: >
