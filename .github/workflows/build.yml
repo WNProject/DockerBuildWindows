@@ -33,8 +33,9 @@ jobs:
       - name: Run tests
         run: >
           docker run --rm ${{steps.info.outputs.tag}}
-          'cl /help;link /help;cmake --version;ninja --version;
-          msbuild /version;git --version;python --version;sccache --version'
+          'cl /help -and link /help -and cmake --version -and
+          ninja --version -and msbuild /version -and git --version -and
+          python --version -and sccache --version'
       - name: Login to registry
         if: github.ref == 'refs/heads/main'
         run: >
