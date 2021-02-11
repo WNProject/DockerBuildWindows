@@ -30,6 +30,12 @@ jobs:
           docker image history
           --format "table {{.Size}}\t{{.CreatedBy}}"
           ${{steps.info.outputs.tag}}
+      - name: Run tests
+        run: >
+          docker run --rm ${{steps.info.outputs.tag}}
+          'cl /help -and link /help -and cmake --version -and
+          ninja --version -and msbuild /version -and git --version -and
+          python --version -and sccache --version'
       - name: Login to registry
         if: github.ref == 'refs/heads/main'
         run: >
