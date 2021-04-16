@@ -39,9 +39,9 @@ jobs:
       - name: Login to registry
         if: github.ref == 'refs/heads/main'
         run: >
-          echo ${{secrets.CONTAINER_REGISTRY_TOKEN}} |
+          echo ${{github.token}} |
           docker login ghcr.io
-          -u ${{secrets.CONTAINER_REGISTRY_USER}}
+          -u ${{secrets.CONTAINER_REGISTRY_USERNAME}}
           --password-stdin
       - name: Push image
         if: github.ref == 'refs/heads/main'
