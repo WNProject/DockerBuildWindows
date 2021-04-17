@@ -40,9 +40,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: >
           echo ${{github.token}} |
-          docker login ghcr.io
-          -u ${{secrets.CONTAINER_REGISTRY_USERNAME}}
-          --password-stdin
+          docker login ghcr.io -u ${{github.actor}} --password-stdin
       - name: Push image
         if: github.ref == 'refs/heads/main'
         run: docker push ${{steps.info.outputs.tag}}
