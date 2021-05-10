@@ -1,16 +1,24 @@
-name: Build
+name: CI
 on:
   pull_request:
+    branches: main
   push:
-    branches:
-      - main
+    branches: main
+permissions:
+  contents: read
+  packages: write
+concurrency:
+  group: ci-${{github.ref}}
+  cancel-in-progress: ${{github.ref != 'refs/heads/main'}}
 jobs:
   build:
     name: Build (msvc-${{matrix.msvc}})
     runs-on: windows-latest
     strategy:
       matrix:
-        msvc: [15, 16]
+        msvc:
+          - 15
+          - 16
     steps:
       - name: Gather info
         id: info
