@@ -1,7 +1,7 @@
 # Docker Build Windows
 
 [![License]](LICENSE)
-[![Build][Build Badge]][Build Workflow]
+[![CI][CI Badge]][CI Workflow]
 
 Docker container containing all needed **Windows** C/C++ build tools. Each
 container will contain only one version of **MSVC** but will contain all
@@ -43,5 +43,5 @@ default. Currently only `15` (**MSVC 15/Visual Studio 2017**) and `16`
 
 <!-- external links -->
 [License]: https://img.shields.io/github/license/WNProject/DockerBuildWindows?label=License
-[Build Badge]: https://github.com/WNProject/DockerBuildWindows/workflows/Build/badge.svg?branch=main
-[Build Workflow]: https://github.com/WNProject/DockerBuildWindows/actions?query=workflow%3ABuild+branch%3Amain
+[CI Badge]: https://github.com/WNProject/DockerBuildWindows/actions/workflows/ci.yml/badge.svg?branch=main
+[CI Workflow]: https://github.com/WNProject/DockerBuildWindows/actions/workflows/ci.yml?query=branch%3Amain
