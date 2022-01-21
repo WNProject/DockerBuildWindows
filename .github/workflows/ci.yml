@@ -19,6 +19,7 @@ jobs:
         msvc:
           - 15
           - 16
+          - 17
     steps:
       - name: Gather info
         id: info
