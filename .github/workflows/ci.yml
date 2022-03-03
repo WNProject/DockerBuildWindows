@@ -38,6 +38,7 @@ jobs:
         uses: docker/build-push-action@v2.9.0
         with:
           context: .
+          file: Dockerfile
           tags: ${{steps.info.outputs.tags}}
           build-args: VS_VERSION=${{matrix.msvc}}
           push: false
