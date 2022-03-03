@@ -44,11 +44,13 @@ jobs:
           'cl /help -and link /help -and cmake --version -and
           ninja --version -and msbuild /version -and git --version -and
           python --version -and sccache --version'
-      - name: Login to registry
+      - name: Log into registry
         if: github.ref == 'refs/heads/main'
-        run: >
-          echo ${{github.token}} |
-          docker login ghcr.io -u ${{github.actor}} --password-stdin
+        uses: docker/login-action@v1.14.1
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{github.token}}
       - name: Push image
         if: github.ref == 'refs/heads/main'
         run: docker push ${{steps.info.outputs.tag}}
