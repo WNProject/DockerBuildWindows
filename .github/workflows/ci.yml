@@ -27,7 +27,7 @@ jobs:
           $tag = "${package}:msvc-${{matrix.msvc}}".ToLower()
           echo "::set-output name=tag::$tag"
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.3
       - name: Build image
         run: >
           docker build .
